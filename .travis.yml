@@ -17,7 +17,7 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: F89jD8PIZJJiZWMh9RD0LvkgknHfoY8xf1gs8TbkBjj/KzCDsGQRxM4H7QJAjXMAYwlmEfhYdDaE96j9EhS/m8WacH+7v+xBJWyOOUDofzFqWC53rizMtrW8FAt+4fB30tcj10RXen2ctiJe7BjRCCdSiziKN5+uyNxYczVj+aoAYf518J0PYf6qz+pyxEg91i1kRAIc97RlNys/9PtV7jE+rtgQaoiV10HUL/Pd1lIcdG3cPQZvHhcaqYSDDUBVvNzPrJW43TmQI/CCkB9kVca4BAe+CMFTQBqWRfbRMYfLmBwP3t4mMZE0cCwdibJh6aKTzmElWS43TNRS6fkF+igWOswwUQy9yGz9D9LwG9hmYVa0Ol2n0fHl6jW+CCWm0RHeJNeoU3sLNl1E3/RZRhv99KIfXxj/vGwfzDioBYJKz50zJwDDfM95churporlw/KcTlGp3q+9rsA1WZInDiNqbG7dj/ug4w+U0LhSoaqxGL8pcw3miFGBfSlSS9EfQXonWqw0tDNFCiYgxMjsN71avxd0GZVtU3VGmlyMvUg5zeIxisbBsk8A9qdUE+HBbI1IxhvpFX5N2E+MgVnRV6wBP+5k7KoRlRi+yQaQQUY2//I5xlQLw/mWdZ7n/WwsNL+6+UAljc3VxUCxXQ5hp0olXNgoIAx6Lx2eNNkJmsw=
+    secure: L7cYOGMywOblm/K54TQc1l4sUk5UG+/SzG8KilOQuScVjDZ/99XndxB6XXNqdJZtF3/nq4eEW4VZsROTRMYSsQW5AQZ3fm/wNRptj
   app: reviewer-api
   on:
     repo: murilocamargos/reviewer-api
