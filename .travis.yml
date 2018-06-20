@@ -16,12 +16,9 @@ env:
 script:
 - python manage.py test
 deploy:
-  matrix:
-  - provider: heroku
-    app: reviewer-api
-    api_key:
-      secure: fwiBEAtvip71TRXHk4q7iHlLmde5wCVpjFCEdpFR+g3X3/8TalftY5ZVGIeThI2tlySohtLnGUdGzPUjpDYxi6UFuGL8qJI82rn1uatfUA7yaXzIME64f45LMNFJSLIKXYj2jA5Lw+EhNZN3oKr8RiHzPRNASmMsstKRRsGNnUICHCixUXNxhr6syG6Web6pwEp9t1k5Hz0hKqSC8e8KGGe0+2TVmIC52dorXlHwHV6Jlt8TR1RIwTMAnjX3r6m5vw/96YjKN/cdtpncntkA2ma5kfw+3/9Ha+bA1Ui2ULK9vCYy8zlgSBClJcSFkJW1EeUjE9b8+XP2B3EvrO48WQ1lorJLumYI5tSQ8fNq7pm3xR8CDL81AbuSixDIWw/Zz/O3fY/edWTexBE48mzzC6ZVz46wG0VCwHRYwP0+rkIV7eexsFZLt2sQ/ptspShzwmVKq3tEcAA2cSZfxT3XDzgjoVomYLU9rzb3lL02fbzpGu6jBMUInm6aTyJ3UM89DCPo5GNxPQz4KQCCFs4fdYpAyPthNIa7i64vAIglmgFt8PmuOr9Sc/PJqC/TCFC/Lh1kjqxwJ1XG5kryGelQgWnsRY92BCV6nMN3pjYDN6MnWGpe2y6CQMvM0vfxC8kbDGwewFSfZnQmu+jCO6z4lEF55s/38SySoJknDJnmA78=
-    on:
-      repo: murilocamargos/reviewer-api
-      branch: master
-    run: python manage.py migrate
+  provider: heroku
+  api_key:
+    secure: fwiBEAtvip71TRXHk4q7iHlLmde5wCVpjFCEdpFR+g3X3/8TalftY5ZVGIeThI2tlySohtLnGUdGzPUjpDYxi6UFuGL8qJI82rn1uatfUA7yaXzIME64f45LMNFJSLIKXYj2jA5Lw+EhNZN3oKr8RiHzPRNASmMsstKRRsGNnUICHCixUXNxhr6syG6Web6pwEp9t1k5Hz0hKqSC8e8KGGe0+2TVmIC52dorXlHwHV6Jlt8TR1RIwTMAnjX3r6m5vw/96YjKN/cdtpncntkA2ma5kfw+3/9Ha+bA1Ui2ULK9vCYy8zlgSBClJcSFkJW1EeUjE9b8+XP2B3EvrO48WQ1lorJLumYI5tSQ8fNq7pm3xR8CDL81AbuSixDIWw/Zz/O3fY/edWTexBE48mzzC6ZVz46wG0VCwHRYwP0+rkIV7eexsFZLt2sQ/ptspShzwmVKq3tEcAA2cSZfxT3XDzgjoVomYLU9rzb3lL02fbzpGu6jBMUInm6aTyJ3UM89DCPo5GNxPQz4KQCCFs4fdYpAyPthNIa7i64vAIglmgFt8PmuOr9Sc/PJqC/TCFC/Lh1kjqxwJ1XG5kryGelQgWnsRY92BCV6nMN3pjYDN6MnWGpe2y6CQMvM0vfxC8kbDGwewFSfZnQmu+jCO6z4lEF55s/38SySoJknDJnmA78=
+  app:
+    master: reviewer-api
+  run: python manage.py migrate
