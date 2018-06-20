@@ -1,0 +1,357 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a review system API, written in Django, that constantly receives api calls to store company reviews made by its users.\n\nAll the api calls are protected with token authentication. It can be sent as a Bearer Token in the request header.\n\nThe review endpoints allows access only to the logged user's reviews. These endpoint can also be nested to the `company` andpoint to filter out only reviews given by the user to a specific company.\n\n- `/review/` Will return user's reviews\n- `/company/ID/review/` Will return user's reviews to this company",
+    "version": "1.0.0",
+    "title": "Review API"
+  },
+  "host": "reviewer-api.herokuapp.com",
+  "basePath": "/api/v1",
+  "securityDefinitions": {
+    "APIKeyHeader": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  },
+  "security": [
+    {
+      "APIKeyHeader": []
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/company/": {
+      "get": {
+        "tags": [
+          "company"
+        ],
+        "summary": "List all companies.",
+        "description": "This endpoind returns all registered companies.",
+        "operationId": "get_companies",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "List with all stored companies",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Company"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/company/{id}/": {
+      "get": {
+        "tags": [
+          "company"
+        ],
+        "summary": "Retrieves a company.",
+        "description": "This endpoind retrieves a company given its ID.",
+        "operationId": "retrieve_company",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "format": "int32",
+            "required": true,
+            "description": "Numeric ID of the price policy"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company found",
+            "schema": {
+              "$ref": "#/definitions/Company"
+            }
+          },
+          "404": {
+            "description": "Company not found"
+          }
+        }
+      }
+    },
+    "/review/": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Returns all reviews made by the logged user.",
+        "description": "This endpoind returns all stored reviews by the logged user.",
+        "operationId": "get_review",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "List with all the user's reviews",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Review"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Creates a review.",
+        "description": "This endpoind creates a review for a given company.",
+        "operationId": "create_review",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "title",
+            "description": "The review info.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReviewAdd"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Succesfully created",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          },
+          "400": {
+            "description": "The fields `title`, `summary`, `rating` and `company` are required."
+          }
+        }
+      }
+    },
+    "/review/{id}/": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Retrieves a review.",
+        "description": "This endpoind retrieves a review given its ID.",
+        "operationId": "retrieve_review",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "format": "int32",
+            "required": true,
+            "description": "Numeric ID of the review"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "review found",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          },
+          "404": {
+            "description": "review not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Update an entire review.",
+        "description": "This endpoind updates an entire review given its ID.",
+        "operationId": "update_review",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "format": "int32",
+            "required": true,
+            "description": "Numeric ID of the review"
+          },
+          {
+            "in": "body",
+            "name": "review",
+            "description": "The review's information.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReviewAdd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "review updated",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          },
+          "400": {
+            "description": "The fields `title`, `summary`, `rating` and `company` are required."
+          },
+          "404": {
+            "description": "review not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Update parts of a review.",
+        "description": "This endpoind updates parts of a review given its ID.",
+        "operationId": "update_parts_review",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "format": "int32",
+            "required": true,
+            "description": "Numeric ID of the review"
+          },
+          {
+            "in": "body",
+            "name": "review",
+            "required": true,
+            "description": "The review's information.",
+            "schema": {
+              "$ref": "#/definitions/ReviewAdd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "review updated",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          },
+          "404": {
+            "description": "review not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Delete a review.",
+        "description": "This endpoind deletes a review given its ID.",
+        "operationId": "delete_review",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "format": "int32",
+            "required": true,
+            "description": "Numeric ID of the review"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "review deleted"
+          },
+          "404": {
+            "description": "review not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Company": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Review": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "ip_address": {
+          "type": "string"
+        },
+        "company": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reviewer": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReviewAdd": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "company": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

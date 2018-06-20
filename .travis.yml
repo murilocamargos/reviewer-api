@@ -21,3 +21,4 @@ deploy:
   app: reviewer-api
   on:
     repo: murilocamargos/reviewer-api
+  run: python manage.py migrate
