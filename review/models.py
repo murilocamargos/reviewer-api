@@ -56,3 +56,10 @@ class Review(TimestampModel):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        if self.rating < 1:
+            self.rating = 1
+        elif self.rating > 5:
+            self.rating = 5
+        super(Review, self).save(*args, **kwargs)
