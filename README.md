@@ -1,5 +1,12 @@
 # Project description
 
+A simple company review system that allows users to create/update/delete/retrieve their reviews. While the companies can be listed and retrieved from API calls, they can only be added/changed/deleted from Admin.
+
+The company models were kept very simple, with only the company's name. This model were create because it will be easier when company metadata needs to be added. I didn't create a `Reviewer` model because I chose to use Django's User built-in models for that.
+
+The API docs can be seen at [https://reviewer-api.herokuapp.com/](https://reviewer-api.herokuapp.com/).
+
+
 ### Tech:
 - Python `3.6.5`
 - Django `2.0.5`
@@ -8,14 +15,14 @@
 ### Ops:
 
 - **Heroku**: to host the app
-- **Codeship**: makes CI/CD from bitbucket to Heroku
+- **Travis**: makes CI/CD from github to Heroku
 - **Docker**: container of a PostgreSQL instance for local development/testing
 - **Sentry**: creates a helpful database of uncaught exceptions in the app
 
 ### Libs:
 
 - **dj-database-url**: to process Heroku's database URL
-- **drf-nested-routers**: to have things like `/api/v1/subscribers/1/bills/`
+- **drf-nested-routers**: to have things like `/api/v1/company/1/review/`
 - **gunicorn**: to act as an HTTP server for the app on Heroku
 - **psycopg2**: driver for connecting to PostgreSQL
 - **whitenoise**: to serve static files on production
