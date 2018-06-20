@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'DEV_SECRET_KEY')
 POSTGRES_ON_DEV = os.environ.get('POSTGRES_ON_DEV', 'True') == 'True'
 DEBUG = os.environ.get('ENVIRONMENT', 'Production') == 'Development'
 
-ALLOWED_HOSTS = ['reviewers-api.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['reviewer-api.herokuapp.com', 'localhost']
 
 
 # Application definition
