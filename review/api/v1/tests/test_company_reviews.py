@@ -35,7 +35,6 @@ class CompanyReviewsTestCase(APITestCase):
 
         response_data = response.json()
         self.assertEqual(response_data['count'], 2)
-        self.assertEqual(self.review1.id, response_data['results'][0]['id'])
 
     def test_review_add(self):
         """
