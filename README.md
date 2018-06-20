@@ -48,9 +48,4 @@
 **Important**: You're gonna need to create a super user for Django Admin:
 ```$ python manage.py createsuperuser```
 
-That's because all API endpoints are protected with tokens (or API keys). You can copy the token generated to your super user and use it in your requests as a query parameter or a Bearer token in the requests header.
-
-**Example**:
-```GET /api/v1/subscribers/?token=3b6f7baf3e36adffe5896954332270020cc32229```
-
-In fact, you can use this token `3b6f7baf3e36adffe5896954332270020cc32229` to authenticate in the API.
+That's because all API endpoints are protected with tokens (or API keys). You can copy the token generated to your super user and use it in your requests as Bearer token in the requests header.
