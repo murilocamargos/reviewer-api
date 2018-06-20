@@ -1,0 +1,27 @@
+language: python
+python: '3.6'
+dist: trusty
+sudo: true
+services:
+- postgresql
+install:
+- pip install -r requirements.txt
+before_script:
+- psql -c 'create database travis_ci_test;' -U postgres
+env:
+  global:
+  - DATABASE_URL="postgres://postgres:@localhost/travis_ci_test"
+  - ENVIRONMENT="TEST"
+  - secure: Ph9pprIPeJ9JLQjVmnegarKlI75+jCBXQDt2qsnaxgunzluCpBzW3beHqHcwGLkDuDQ9z2ELx3DnXMqq/X0iIhYZH8SoiYVfLf2YawUj/cIEblCpIMPvEmP5uTKQLztiLK7/OrtOHnjfwm/RLLpv8WvckwiC2T/NBOqRmq1YPcU1PAho+mF8RHcN4Wjl3g5MppJHuQKyt+mTDl18qOnhcz++UoFZtOaG5ZXSmwRPfPiUEa6lySNvxwg59o6laBhuRpYmXlgykFKVFs79iOoMSlhRGZ4wn6Gzu6PuVa3HYmmsa3MrC+jks73zx8gjqE6obKPOqziKiKEHUurCn+xEmUft6MoAIW7+8SIWktw8+dJvNbI2MU5g5upwGNf6zreZkJfXyuumXDLYCVY73GcqznKS9mmyDx+NHQ6NneuURIto+9GQSg5jP1ztqXiZSOtzrxAlFzX4DvoZR7+d9GE1tY/aJl9RdRd4/RMcSWYedAiAuuLPpUnFuhHUoOyUaBLmKYqBV2g67RF5fG5JvJ7sAgNAyQ/ObvkfGerHeTtKH3DbxhmayzqaNDnuh3IZoN8+WGvAnULatFFPUL70Y7Cds7IBPDGM1Zg1vgTIQ2Plc8AD4XJLrhc58QHZEBSIhrhHEKqHUOr8JFLEwx4+6I6jyEksMBUDavCKj4e6Dm+VZC0=
+script:
+- python manage.py test
+deploy:
+  matrix:
+  - provider: heroku
+    app: reviewer-api
+    api_key:
+      secure: fwiBEAtvip71TRXHk4q7iHlLmde5wCVpjFCEdpFR+g3X3/8TalftY5ZVGIeThI2tlySohtLnGUdGzPUjpDYxi6UFuGL8qJI82rn1uatfUA7yaXzIME64f45LMNFJSLIKXYj2jA5Lw+EhNZN3oKr8RiHzPRNASmMsstKRRsGNnUICHCixUXNxhr6syG6Web6pwEp9t1k5Hz0hKqSC8e8KGGe0+2TVmIC52dorXlHwHV6Jlt8TR1RIwTMAnjX3r6m5vw/96YjKN/cdtpncntkA2ma5kfw+3/9Ha+bA1Ui2ULK9vCYy8zlgSBClJcSFkJW1EeUjE9b8+XP2B3EvrO48WQ1lorJLumYI5tSQ8fNq7pm3xR8CDL81AbuSixDIWw/Zz/O3fY/edWTexBE48mzzC6ZVz46wG0VCwHRYwP0+rkIV7eexsFZLt2sQ/ptspShzwmVKq3tEcAA2cSZfxT3XDzgjoVomYLU9rzb3lL02fbzpGu6jBMUInm6aTyJ3UM89DCPo5GNxPQz4KQCCFs4fdYpAyPthNIa7i64vAIglmgFt8PmuOr9Sc/PJqC/TCFC/Lh1kjqxwJ1XG5kryGelQgWnsRY92BCV6nMN3pjYDN6MnWGpe2y6CQMvM0vfxC8kbDGwewFSfZnQmu+jCO6z4lEF55s/38SySoJknDJnmA78=
+    on:
+      repo: murilocamargos/reviewer-api
+      branch: master
+    run: python manage.py migrate
